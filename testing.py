@@ -4,9 +4,13 @@ import msvcrt;
 import sys;
 
 """
-	winsound plays tones ranging from 37 - 32,767. Second paramater being time in miliseconds
-	This is just for a start. We will have to find another package that allows for frequencies
-	of something so we can get the exact sounds we need.
+	winsound plays tones ranging from 37 - 32,767 Hertz. Second paramater being time in miliseconds
+	This is just for a start. We might have to find another package that allows for frequencies
+	acurate to the .00 so we can get the exact sounds we need. Will also have to play with timings to make
+	it sound better. Will also look into having the program notice when a key is released and try playing
+	the sound while the key is down then stopping once released. Apparently key listeners is harder than I 
+	thought. Might be easier to just import pygame to handle the key listeners. Its already set up to do 
+	key down and key released listening.
 """
 #winsound.Beep(37, 3000);
 #time.sleep(3);
@@ -44,7 +48,7 @@ def playSoundTwo():
 	return
 
 def playSoundThree():
-	winsound.Beep(100, 1000);
+	winsound.Beep(4186, 1000);
 	return
 
 	
