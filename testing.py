@@ -2,7 +2,11 @@ import winsound;
 import time;
 import msvcrt;
 import sys;
-
+import tkinter as tk
+from Channel import Channel;
+from note import Note;
+from setup import Setup;
+from GUI import graphicInterface;
 """
 	winsound plays tones ranging from 37 - 32,767 Hertz. Second paramater being time in miliseconds
 	This is just for a start. We might have to find another package that allows for frequencies
@@ -24,6 +28,7 @@ import sys;
 #time.sleep(3)
 #winsound.Beep(200, 3000);
 
+
 def kbfunc(): 
 	""" 
 		Function for reading key input. Listens for a key to be pushed. Once pushed returns the string
@@ -36,25 +41,25 @@ def kbfunc():
 		ret = 0; #returns 0 while no key is being pushed.
 	return ret
 
-"""
-	Functions that just play a specific sound for 1 second. Mainly just for testing.
-"""
-def playSoundOne():
-	winsound.Beep(200, 1000);
-	return
-
-def playSoundTwo():
-	winsound.Beep(300, 1000);
-	return
-
-def playSoundThree():
-	winsound.Beep(4186, 1000);
-	return
-
+def determineNote(keyString, Dict):
+	return Dict[keyString];
 	
-	
-	
-x = True
+
+SetUp = Setup();
+SetUp.createNotes();
+NoteDict = SetUp.getNoteDict();
+
+root = tk.Tk()
+Gui = graphicInterface(root);
+#root.mainloop()
+root.update()
+
+channel_1 = Channel("channel_1");
+
+currentOctive = 0;
+currentFrequency = 0;
+
+x = True;
 
 while(x):
 	"""
@@ -64,16 +69,45 @@ while(x):
 	Program does queue key presses, such that if one presses 's' while a sound is being played
 	the program will play the sound matching 's' emediately after.
 	"""
+
+	
 	temp = kbfunc();
 	if temp != 0:
-		if temp == '`':
-			sys.exit();
-		elif temp == 'a':
-			playSoundOne();
-		elif temp == 's':
-			playSoundTwo();
-		elif temp == 'd':
-			playSoundThree();
+		if temp != '`':
+			if temp == ']':
+				currentOctive = currentOctive + 1;
+				Gui.showOctive(currentOctive);
+				root.update();
+				
+			elif temp == '[':
+				if currentOctive == 0:
+					print("Octive is already at 0 (2)");
+				else:
+					currentOctive = currentOctive - 1;
+					Gui.showOctive(currentOctive);
+					root.update();
+					
+				
+			else:
+				try:
+					newNote = determineNote(temp, NoteDict);
+					if currentFrequency == 0:
+						currentFrequency = int(round(newNote.getFrequency()));
+					else:
+						currentFrequency = int(round(newNote.getFrequency() * (2 * currentFrequency)));
+					winsound.Beep(currentFrequency, 3000);
+				
+					channel_1.addNote(temp);
+				
+				except KeyError:
+					print(temp);
+					print("Key not mapped");
+
 		else:
-			print(temp);
-		
+			print(channel_1.getNotes());
+			sys.exit();
+				
+				
+				
+				
+				

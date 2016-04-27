@@ -15,7 +15,7 @@ class Setup:
 		sound_1 = Note("C_2", 65.41);
 		self.addNotetoDict('z', sound_1);
 		
-		sound_2 = Note("C#_2", 39.30);
+		sound_2 = Note("C#_2", 69.30);
 		self.addNotetoDict('s', sound_2);
 		
 		sound_3 = Note("D_2", 73.42);
