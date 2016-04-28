@@ -4,13 +4,13 @@ from note import Note;
 class Channel:
 	def __init__(self, name):
 		self.Name = name;
-		self.Notes = [];
+		self.NoteList = [];
 	
 	def getNotes(self):
-		return self.Notes;
+		return self.NoteList;
 	
 	def addNote(self, note):
-		self.Notes.append(note);
+		self.NoteList.append(note);
 		#print(self.Notes);
 		
 	def playNotes(self):

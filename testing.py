@@ -91,10 +91,10 @@ while(x):
 			else:
 				try:
 					newNote = determineNote(temp, NoteDict);
-					if currentFrequency == 0:
+					if currentOctive == 0:
 						currentFrequency = int(round(newNote.getFrequency()));
 					else:
-						currentFrequency = int(round(newNote.getFrequency() * (2 * currentFrequency)));
+						currentFrequency = int(round(newNote.getFrequency() * (2 * currentOctive)));
 					winsound.Beep(currentFrequency, 3000);
 				
 					channel_1.addNote(temp);
